@@ -67,7 +67,8 @@ jobs:
               exit 1 ;;
           esac
           count=$(git rev-list --no-merges --count "$from..$to")
-          echo "range=\`$from..$to\` non_merge_commits=\`$count\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "range=$from..$to non_merge_commits=$count"
+          echo "- range \`$from..$to\` — non-merge commits: **$count**" >> "$GITHUB_STEP_SUMMARY"
           if [ "$count" -eq 0 ]; then
             echo "::error::Vacuous run: no non-merge commits in $from..$to, so nothing would be linted."
             exit 1
