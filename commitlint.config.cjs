@@ -15,7 +15,12 @@
  */
 module.exports = {
   extends: ['@commitlint/config-conventional'],
-  ignores: [(message) => /^Merge (pull request|branch|remote-tracking)/.test(message)],
+  ignores: [
+    (message) => /^Merge (pull request|branch|remote-tracking)/.test(message),
+    // bd's own auto-commits ("bd init: initialize beads issue tracking") are
+    // tool-generated, not operator changelog material — same class as Merge.
+    (message) => /^bd [a-z]+:/.test(message),
+  ],
   rules: {
     'header-max-length': [2, 'always', 100],
     'body-max-line-length': [0],
